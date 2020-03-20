@@ -1,0 +1,93 @@
+---
+
+  - name: Update all packages
+    dnf:
+      name: "*"
+      state: latest
+      update_cache: yes
+    notify:
+      - Reboot node
+
+  - name: Remove useless packages
+    dnf:
+     state: absent
+     name: [
+       'nano',
+       'wireless-tools'
+     ]
+
+  - name: Install additional software for work
+    dnf:
+      state: present
+      name: [
+        'ant',
+        'git',
+        'htop',
+        'java-11-openjdk',
+        'mc',
+        'neovim',
+        'nodejs',
+        'npm',
+        'ruby',
+        'screen',
+        'the_silver_searcher'
+      ]
+
+  - name: Create a tmp folder
+    file:
+      path: /root/work/tmp
+      state: directory
+      mode: '0755'
+
+  - name: Create a work folder
+    file:
+      path: /root/work/src/git.acronis.com/alkurbatov
+      state: directory
+      mode: '0755'
+
+  - name: Download Sencha installer
+    get_url:
+      url: http://cdn.sencha.com/cmd/6.7.0.63/no-jre/SenchaCmd-6.7.0.63-linux-amd64.sh.zip
+      dest: /root/work/tmp
+      mode: '0440'
+
+  - name: Extract SenchaCmd into /root/work/tmp
+    unarchive:
+      src: /root/work/tmp/SenchaCmd-6.7.0.63-linux-amd64.sh.zip
+      dest: /root/work/tmp
+      remote_src: yes
+
+  - name: Open admin panel port
+    firewalld:
+      port: 8888/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+
+  - name: Add custom npm registry
+    copy:
+      src: extjsdev.setup/files/.npmrc
+      dest: /root/
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Copy application config
+    copy:
+      src: extjsdev.setup/files/pstorage-ui.conf
+      dest: /etc/nginx/sites-avalable/
+      owner: root
+      group: root
+      mode: '0644'
+    notify:
+      - Restart nginx
+
+  - name: Enable application config
+    file:
+      src: /etc/nginx/sites-avalable/pstorage-ui.conf
+      dest: /etc/nginx/sites-enabled/pstorage-ui.conf
+      owner: root
+      group: root
+      state: link
+    notify:
+      - Restart nginx

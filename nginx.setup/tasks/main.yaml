@@ -1,0 +1,39 @@
+---
+
+  - name: Install nginx
+    dnf:
+      state: present
+      name: 'nginx'
+
+  - name: Create sites-available folder for nginx
+    file:
+      path: /etc/nginx/sites-avalable
+      state: directory
+      mode: '0755'
+
+  - name: Create sites-enabled folder for nginx
+    file:
+      path: /etc/nginx/sites-enabled
+      state: directory
+      mode: '0755'
+
+  - name: Create SSL folder to store certificates for nginx
+    file:
+      path: /etc/nginx/ssl
+      state: directory
+      mode: '0755'
+
+  - name: Copy nginx config
+    copy:
+      src: nginx.setup/files/nginx.conf
+      dest: /etc/nginx/
+      owner: root
+      group: root
+      mode: "0644"
+
+  - name: Run nginx
+    systemd:
+      name: nginx
+      enabled: yes
+      state: started
+

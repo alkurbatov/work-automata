@@ -1,0 +1,10 @@
+---
+
+- name: Initial setup of ExtJs dev env playbook
+  hosts: extjs-dev
+  gather_facts: no
+  roles:
+    - common
+    - baseserver.setup
+    - nginx.setup
+    - extjsdev.setup

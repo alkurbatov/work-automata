@@ -1,0 +1,27 @@
+---
+  - name: Disable UseDNS to speed up establishing of SSH connection
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: "^#?UseDNS"
+      line: "UseDNS no"
+      insertafter: EOF
+      state: present
+    notify:
+      - Restart sshd
+
+  - name: Determine whether IPv6 support enabled
+    command: /usr/bin/cat /proc/sys/net/ipv6/conf/enp1s0/disable_ipv6
+    register: ipv6_disabled
+    changed_when: false
+
+  - name: Disable IPv6 support
+    command: /usr/bin/nmcli connection modify enp1s0 ipv6.method disabled
+    when: ipv6_disabled.stdout == '0'
+    notify:
+      - Restart NetworkManager
+
+  - name: Disable selinux
+    selinux:
+      state: disabled
+    notify:
+      - Reboot node
