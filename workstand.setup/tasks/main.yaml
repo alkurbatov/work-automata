@@ -131,7 +131,7 @@
 
 # FIXME (alkurbatov): I doubt that we can do it more then once.
   - name: Create very small OpenStack flavor
-    command: "openstack --insecure flavor create --ram 64 --disk 1 super-tini"
+    shell: source /etc/kolla/admin-openrc.sh && openstack --insecure flavor create --ram 64 --disk 1 super-tini
     when: role_in_cluster == "controller"
 
   - name: Extend keystone token lifetime
