@@ -118,8 +118,6 @@
     register: cred_gen_result
     changed_when: cred_gen_result.stdout is search('changed=1')
     when: role_in_cluster == "controller"
-    notify:
-      - Inject OpenStack credentials
 
   - name: Disable the Shaman daemon
     systemd:
