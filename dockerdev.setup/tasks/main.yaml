@@ -5,5 +5,16 @@
       state: present
       name: [
         'docker',
+        'grubby',
       ]
+
+  - name: Apply workaround to make docker work with new cgroups
+    command: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+    notify:
+      - Reboot node
+
+  - name: Enable autostart of the docker service
+    systemd:
+      name: docker
+      enabled: yes
 
