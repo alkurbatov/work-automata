@@ -1,0 +1,9 @@
+---
+
+  - name: Install additional software for work
+    dnf:
+      state: present
+      name: [
+        'docker',
+      ]
+

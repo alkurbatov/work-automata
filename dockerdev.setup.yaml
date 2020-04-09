@@ -1,0 +1,10 @@
+---
+
+- name: Initial setup of Docker dev env playbook
+  hosts: docker-dev
+  gather_facts: no
+  roles:
+    - common
+    - baseserver.setup
+    - devenv.setup
+    - dockerdev.setup
