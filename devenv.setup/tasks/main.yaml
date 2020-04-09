@@ -37,23 +37,37 @@
     dnf:
       state: present
       name: [
+        'curl',
         'git',
         'htop',
+        'iotop',
+        'iproute',
+        'lsof',
         'mc',
         'neovim',
         'nodejs',
         'npm',
+        'patch',
         'screen',
-        'the_silver_searcher'
+        'strace',
+        'the_silver_searcher',
+        'util-linux-user',
+        'wget',
+        'zsh',
       ]
 
-  - name: Create a tmp folder
+  - name: Create a work/bin folder
+    file:
+      path: /root/work/bin
+      state: directory
+
+  - name: Create a work/tmp folder
     file:
       path: /root/work/tmp
       state: directory
       mode: '0755'
 
-  - name: Create a work folder
+  - name: Create a work/src folder
     file:
       path: /root/work/src/git.acronis.com/alkurbatov
       state: directory
@@ -66,4 +80,38 @@
       owner: root
       group: root
       mode: '0644'
+
+  - name: Copy developer key
+    copy:
+      src: ~/.ssh/acronis_rsa
+      dest: /root/.ssh
+      owner: root
+      mode: '0600'
+
+  - name: Copy ssh config
+    copy:
+      src: devenv.setup/files/config
+      dest: /root/.ssh
+      owner: root
+      mode: '0600'
+
+  - name: Copy zsh configuration files
+    copy:
+      src: "~/work/src/github.com/alkurbatov/dotfiles/{{item}}"
+      dest: /root
+      owner: root
+      mode: '0644'
+    loop:
+      - .zshrc
+      - .zshenv
+      - .zsh_tools
+      - .zsh_aliases
+
+  - name: Install zsh-autosuggestions plugin
+    command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+    args:
+      creates: ~/.zsh/zsh-autosuggestions
+
+  - name: Make zsh the default shell
+    shell: chsh -s $(which zsh)
 
