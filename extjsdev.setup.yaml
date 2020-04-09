@@ -5,7 +5,6 @@
   gather_facts: no
   roles:
     - common
-    - baseserver.setup
     - devenv.setup
     - nginx.setup
     - extjsdev.setup

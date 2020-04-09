@@ -8,6 +8,11 @@
 - name: Update locate DB
   command: /usr/bin/updatedb
 
+- name: Restart sshd
+  systemd:
+    name: sshd
+    state: restarted
+
 # NOTE (alkurbatov): This handler should be always placed at the end of the file
 # in order to be executed the last.
 - name: Reboot node
