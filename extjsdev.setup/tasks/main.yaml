@@ -1,49 +1,13 @@
 ---
 
-  - name: Update all packages
-    dnf:
-      name: "*"
-      state: latest
-      update_cache: yes
-    notify:
-      - Reboot node
-
-  - name: Remove useless packages
-    dnf:
-     state: absent
-     name: [
-       'nano',
-       'wireless-tools'
-     ]
-
   - name: Install additional software for work
     dnf:
       state: present
       name: [
         'ant',
-        'git',
-        'htop',
         'java-11-openjdk',
-        'mc',
-        'neovim',
-        'nodejs',
-        'npm',
-        'ruby',
-        'screen',
-        'the_silver_searcher'
+        'ruby'
       ]
-
-  - name: Create a tmp folder
-    file:
-      path: /root/work/tmp
-      state: directory
-      mode: '0755'
-
-  - name: Create a work folder
-    file:
-      path: /root/work/src/git.acronis.com/alkurbatov
-      state: directory
-      mode: '0755'
 
   - name: Download Sencha installer
     get_url:
@@ -63,14 +27,6 @@
       permanent: yes
       state: enabled
       immediate: yes
-
-  - name: Add custom npm registry
-    copy:
-      src: extjsdev.setup/files/.npmrc
-      dest: /root/
-      owner: root
-      group: root
-      mode: '0644'
 
   - name: Copy application config
     copy:

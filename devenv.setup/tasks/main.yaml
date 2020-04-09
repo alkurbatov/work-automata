@@ -1,0 +1,52 @@
+---
+
+  - name: Update all packages
+    dnf:
+      name: "*"
+      state: latest
+      update_cache: yes
+    notify:
+      - Reboot node
+
+  - name: Remove useless packages
+    dnf:
+     state: absent
+     name: [
+       'nano',
+       'wireless-tools'
+     ]
+
+  - name: Install additional software for work
+    dnf:
+      state: present
+      name: [
+        'git',
+        'htop',
+        'mc',
+        'neovim',
+        'nodejs',
+        'npm',
+        'screen',
+        'the_silver_searcher'
+      ]
+
+  - name: Create a tmp folder
+    file:
+      path: /root/work/tmp
+      state: directory
+      mode: '0755'
+
+  - name: Create a work folder
+    file:
+      path: /root/work/src/git.acronis.com/alkurbatov
+      state: directory
+      mode: '0755'
+
+  - name: Add custom npm registry
+    copy:
+      src: devenv.setup/files/.npmrc
+      dest: /root/
+      owner: root
+      group: root
+      mode: '0644'
+
