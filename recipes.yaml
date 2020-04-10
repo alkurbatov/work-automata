@@ -28,12 +28,6 @@
       name: ntpdate
       enabled: False
 
-  - name: Start the psacct service
-    systemd:
-      name: psacct
-      enabled: True
-      state: started
-
   - name: Stop and disable firewalld
     systemd:
       name: firewalld
@@ -54,31 +48,6 @@
     command: "git clone https://git.openstack.org/openstack-dev/devstack"
     become: yes
     become_user: stack
-
-  - name: Purge redundant software
-    dnf: state=absent name="{{item}}" autoremove=yes
-    with_items:
-      - abrt
-      - bluez
-      - iwl5000-firmware
-      - iwl2030-firmware
-      - iwl6000g2a-firmware
-      - iwl4965-firmware
-      - iwl3945-firmware
-      - iwl100-firmware
-      - iwl6000g2b-firmware
-      - iwl135-firmware
-      - iwl1000-firmware
-      - iwl6000-firmware
-      - iwl7260-firmware
-      - iwl3160-firmware
-      - iwl2000-firmware
-      - iwl105-firmware
-      - iwl6050-firmware
-      - iwl5150-firmware
-      - nano
-      - wireless-tools
-      - wpa_supplicant
 
   - name: Install virtualization support
     dnf: state=present name="{{item}}"

@@ -17,6 +17,33 @@
     notify:
       - Reboot node
 
+  - name: Remove useless packages
+    dnf:
+     state: absent
+     name: [
+       'abrt',
+       'bluez',
+       'iwl100-firmware',
+       'iwl1000-firmware',
+       'iwl105-firmware',
+       'iwl135-firmware',
+       'iwl2000-firmware',
+       'iwl2030-firmware',
+       'iwl3160-firmware',
+       'iwl3945-firmware',
+       'iwl4965-firmware',
+       'iwl5000-firmware',
+       'iwl5150-firmware',
+       'iwl6000-firmware',
+       'iwl6000g2a-firmware',
+       'iwl6000g2b-firmware',
+       'iwl6050-firmware',
+       'iwl7260-firmware',
+       'nano',
+       'wireless-tools',
+       'wpa_supplicant',
+     ]
+
   - name: Update all packages
     dnf:
       name: "*"
@@ -25,24 +52,18 @@
     notify:
       - Reboot node
 
-  - name: Remove useless packages
-    dnf:
-     state: absent
-     name: [
-       'nano',
-       'wireless-tools'
-     ]
-
   - name: Install additional software for work
     dnf:
       state: present
       name: [
         'curl',
         'git',
+        'gpgme',
         'htop',
         'iotop',
         'iproute',
         'lsof',
+        'make',
         'mc',
         'neovim',
         'nodejs',
@@ -114,4 +135,11 @@
 
   - name: Make zsh the default shell
     shell: chsh -s $(which zsh)
+
+  - name: Copy git config
+    copy:
+      src: ~/work/src/github.com/alkurbatov/dotfiles/.gitconfig
+      dest: /root
+      owner: root
+      mode: '0600'
 
