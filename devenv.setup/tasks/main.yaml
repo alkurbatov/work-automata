@@ -23,6 +23,7 @@
      name: [
        'abrt',
        'bluez',
+       'cups-libs',
        'iwl100-firmware',
        'iwl1000-firmware',
        'iwl105-firmware',
@@ -40,6 +41,9 @@
        'iwl6050-firmware',
        'iwl7260-firmware',
        'nano',
+       'nfs-utils',
+       'ntfs-3g',
+       'wireless-regdb',
        'wireless-tools',
        'wpa_supplicant',
      ]
@@ -140,6 +144,13 @@
     copy:
       src: ~/work/src/github.com/alkurbatov/dotfiles/.gitconfig
       dest: /root
+      owner: root
+      mode: '0600'
+
+  - name: Copy gpg config in order to be able to sign commits inside virtual machines
+    copy:
+      src: devenv.setup/files/gpg.conf
+      dest: /root/.gnupg
       owner: root
       mode: '0600'
 
