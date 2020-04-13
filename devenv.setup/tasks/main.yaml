@@ -147,6 +147,11 @@
       owner: root
       mode: '0600'
 
+  - name: Create a .gnupg folder
+    file:
+      path: ~/.gnupg
+      state: directory
+
   - name: Copy gpg config in order to be able to sign commits inside virtual machines
     copy:
       src: devenv.setup/files/gpg.conf
