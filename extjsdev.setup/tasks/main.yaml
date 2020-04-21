@@ -31,7 +31,7 @@
   - name: Copy application config
     copy:
       src: extjsdev.setup/files/pstorage-ui.conf
-      dest: /etc/nginx/sites-avalable/
+      dest: /etc/nginx/sites-available/
       owner: root
       group: root
       mode: '0644'
@@ -40,7 +40,7 @@
 
   - name: Enable application config
     file:
-      src: /etc/nginx/sites-avalable/pstorage-ui.conf
+      src: /etc/nginx/sites-available/pstorage-ui.conf
       dest: /etc/nginx/sites-enabled/pstorage-ui.conf
       owner: root
       group: root

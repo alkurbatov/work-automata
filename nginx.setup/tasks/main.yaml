@@ -7,7 +7,7 @@
 
   - name: Create sites-available folder for nginx
     file:
-      path: /etc/nginx/sites-avalable
+      path: /etc/nginx/sites-available
       state: directory
       mode: '0755'
 
