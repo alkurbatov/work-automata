@@ -31,7 +31,7 @@
       group: root
       mode: '0644'
 
-  - name: Run nginx
+  - name: Enable autostart and run nginx
     systemd:
       name: nginx
       enabled: yes
