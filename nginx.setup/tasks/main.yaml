@@ -1,9 +1,9 @@
 ---
 
   - name: Install nginx
-    dnf:
+    package:
       state: present
-      name: 'nginx'
+      name: nginx
 
   - name: Create sites-available folder for nginx
     file:
