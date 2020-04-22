@@ -1,6 +1,4 @@
 ---
-  - include: common/tasks/sync_my_configs.yaml
-
   - name: Enable the hci-devel repository
     ini_file:
       dest: /etc/yum.repos.d/hci-devel.repo
