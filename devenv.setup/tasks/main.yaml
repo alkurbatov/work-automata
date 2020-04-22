@@ -14,8 +14,7 @@
   - name: Disable selinux
     selinux:
       state: disabled
-    notify:
-      - Reboot node
+    register: disable_selinux
 
   - name: Remove useless packages
     dnf:
@@ -53,8 +52,11 @@
       name: "*"
       state: latest
       update_cache: yes
-    notify:
-      - Reboot node
+    register: update_packages
+
+  - name: Reboot node
+    reboot:
+    when: disable_selinux.changed or update_packages.changed
 
   - name: Install additional software for work
     dnf:
@@ -158,4 +160,3 @@
       dest: /root/.gnupg
       owner: root
       mode: '0600'
-
