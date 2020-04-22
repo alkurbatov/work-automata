@@ -15,5 +15,5 @@ $ ansible-playbook -i ~/work/etc/hosts workstand.update.yaml
 ## Hacking
 ```bash
 # To verify changes with linter:
-$ ansible-lint workstand.update.yaml
+$ make lint
 ```
