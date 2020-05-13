@@ -1,3 +1,4 @@
+# vim:ft=yaml.ansible:
 ---
 # The playbook contains the recipes which are not used in the other playbooks
 # but could be usable from time to time.

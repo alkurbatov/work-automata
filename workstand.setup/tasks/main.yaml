@@ -1,3 +1,4 @@
+# vim:ft=yaml.ansible:
 ---
   - name: Enable the hci-devel repository
     ini_file:
@@ -88,7 +89,7 @@
     notify:
       -  Restart nginx
 
-# FIME (alkurbatov): Use templates to somehow reduce the code duplication.
+# FIXME (alkurbatov): Use templates to somehow reduce the code duplication.
   - name: Allow anonymous access to Agent
     replace:
       path: /etc/nginx/conf.d/vstorage-ui-agent.conf

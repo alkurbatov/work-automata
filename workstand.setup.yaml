@@ -1,3 +1,4 @@
+# vim:ft=yaml.ansible:
 ---
 
 - name: Initial setup of the workstand playbook

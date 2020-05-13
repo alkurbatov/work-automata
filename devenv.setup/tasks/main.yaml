@@ -1,3 +1,4 @@
+# vim:ft=yaml.ansible:
 ---
 
   - name: Determine whether IPv6 support enabled

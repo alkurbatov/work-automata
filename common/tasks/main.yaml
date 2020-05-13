@@ -1,3 +1,4 @@
+# vim:ft=yaml.ansible:
 ---
 
   - name: Disable UseDNS to speed up establishing of SSH connection

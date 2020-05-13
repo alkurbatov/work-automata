@@ -1,3 +1,5 @@
+# vim:ft=yaml.ansible:
+# vim:ft=yaml.ansible:
 ---
 
 - name: Initial setup of ExtJs dev env playbook
