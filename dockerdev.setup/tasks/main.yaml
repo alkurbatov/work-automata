@@ -5,8 +5,8 @@
     dnf:
       state: present
       name: [
-        'docker',
-        'grubby',
+        docker,
+        grubby,
       ]
 
   - name: Apply workaround to make docker work with new cgroups
