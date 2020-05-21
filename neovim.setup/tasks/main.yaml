@@ -1,0 +1,41 @@
+# vim:ft=yaml.ansible:
+---
+
+  - name: Install vim colorscheme
+    copy:
+      src: ~/.config/nvim/colors
+      dest: /root/.config/nvim/
+      owner: root
+      mode: '0600'
+
+  - name: Install ale vim plugin
+    git:
+      repo: https://github.com/dense-analysis/ale.git
+      dest: /root/.local/share/nvim/site/pack/linting/opt/ale
+      depth: 1
+      version: v2.6.0
+
+  - name: Install vim-vue-plugin
+    git:
+      repo: https://github.com/leafOfTree/vim-vue-plugin.git
+      dest: /root/.local/share/nvim/site/pack/js/opt/vim-vue-plugin
+      version: v1.0.20191126
+
+  - name: Install git-messenger vim plugin
+    git:
+      repo: https://github.com/rhysd/git-messenger.vim.git
+      dest: /root/.local/share/nvim/site/pack/git/start/git-messenger
+      version: HEAD
+    tags:
+      - skip_ansible_lint
+
+  - name: Install python-mode vim plugin
+    git:
+      repo: https://github.com/python-mode/python-mode.git
+      dest: /root/.local/share/nvim/site/pack/python/opt/python-mode
+      version: 0.10.0
+
+  - name: Copy neovim configs
+    copy:
+      src: ~/work/src/github.com/alkurbatov/dotfiles/.config/nvim
+      dest: /root/.config/

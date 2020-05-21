@@ -8,5 +8,6 @@
   roles:
     - common
     - devenv.setup
+    - neovim.setup
     - nginx.setup
     - extjsdev.setup

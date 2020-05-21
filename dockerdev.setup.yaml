@@ -7,4 +7,5 @@
   roles:
     - common
     - devenv.setup
+    - neovim.setup
     - dockerdev.setup
