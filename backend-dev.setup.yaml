@@ -1,0 +1,10 @@
+# vim:ft=yaml.ansible:
+---
+
+- name: Initial setup of the HCI backend developer machine
+  hosts: btests
+  gather_facts: no
+  roles:
+    - common
+    - neovim.setup
+    - backend-dev.setup
