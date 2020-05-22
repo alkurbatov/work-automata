@@ -29,11 +29,21 @@
     tags:
       - skip_ansible_lint
 
-  - name: Install python-mode vim plugin
+  - name: Install python-syntax vim plugin
     git:
-      repo: https://github.com/python-mode/python-mode.git
-      dest: /root/.local/share/nvim/site/pack/python/opt/python-mode
-      version: 0.10.0
+      repo: https://github.com/vim-python/python-syntax.git
+      dest: /root/.local/share/nvim/site/pack/python/opt/python-syntax
+      version: HEAD
+    tags:
+      - skip_ansible_lint
+
+  - name: Install nginx vim plugin
+    git:
+      repo: https://github.com/chr4/nginx.vim.git
+      dest: /root/.local/share/nvim/site/pack/web/opt/nginx.vim
+      version: HEAD
+    tags:
+      - skip_ansible_lint
 
   - name: Copy neovim configs
     copy:
