@@ -79,6 +79,7 @@
       state: present
       name: [
         curl,
+        gcc-c++,
         git,
         gpgme,
         htop,
@@ -150,6 +151,12 @@
       - .zshenv
       - .zsh_tools
       - .zsh_aliases
+
+  - name: Install zsh-you-should-use plugin
+    git:
+      repo: https://github.com/MichaelAquilina/zsh-you-should-use.git
+      dest: ~/.zsh/zsh-you-should-use
+      version: 1.7.3
 
   - name: Install zsh-autosuggestions plugin
     git:
