@@ -1,6 +1,6 @@
 # Work environment management routine
 
-## Demostands management routine
+## Workstand management routine
 ```bash
 # Inject SSH access keys:
 $ ssh-copy-id -i ~/.ssh/workstand.pub root@<ip-address>
