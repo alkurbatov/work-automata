@@ -1,28 +1,5 @@
 # vim:ft=yaml.ansible:
 ---
-  - name: Enable the hci-devel repository
-    ini_file:
-      dest: /etc/yum.repos.d/hci-devel.repo
-      section: hci-devel
-      option: enabled
-      value: "1"
-
-  - name: Disable the readykernel repository
-    ini_file:
-      path: /etc/yum.repos.d/readykernel.repo
-      section: readykernel
-      option: enabled
-      value: "0"
-      backup: no
-
-  - name: Add the aux repository
-    yum_repository:
-      file: aux
-      name: aux
-      description: UI testing repository
-      baseurl: http://kojistorage.eng.sw.ru/mash/hci-4.0.0-vz/latest/x86_64/os/
-      priority: "100"
-      gpgcheck: no
 
   - name: Install additional software for work
     yum:
@@ -53,11 +30,6 @@
         - wget
     notify:
       - Update locate DB
-
-  - name: Create the work folder
-    file:
-      path: /root/work/bin
-      state: directory
 
   - name: Copy handy scripts
     copy:

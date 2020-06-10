@@ -6,4 +6,5 @@
   gather_facts: no
   roles:
     - common
+    - hci-base.setup
     - workstand.setup

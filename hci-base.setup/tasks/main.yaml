@@ -1,0 +1,58 @@
+# vim:ft=yaml.ansible:
+---
+  - name: Disable hci-base release repo
+    ini_file:
+      dest: /etc/yum.repos.d/hci.repo
+      section: hci-base
+      option: enabled
+      value: '0'
+      backup: no
+
+  - name: Disable hci-updates release repo
+    ini_file:
+      dest: /etc/yum.repos.d/hci.repo
+      section: hci-updates
+      option: enabled
+      value: '0'
+      backup: no
+
+  - name: Activate hci-devel repo
+    ini_file:
+      dest: /etc/yum.repos.d/hci-devel.repo
+      section: hci-devel
+      option: enabled
+      value: '1'
+      backup: no
+
+  - name: Disable the readykernel repository
+    ini_file:
+      path: /etc/yum.repos.d/readykernel.repo
+      section: readykernel
+      option: enabled
+      value: "0"
+      backup: no
+
+  - name: Add the aux repository
+    yum_repository:
+      file: aux
+      name: aux
+      description: UI testing repository
+      baseurl: http://kojistorage.eng.sw.ru/mash/hci-4.0.0-vz/latest/x86_64/os/
+      priority: "100"
+      gpgcheck: no
+
+  - name: Add the epel repository
+    yum:
+      state: present
+      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+  - name: Create a work/etc folder
+    file:
+      path: /root/work/etc
+      state: directory
+      mode: '0755'
+
+  - name: Create the work folder
+    file:
+      path: /root/work/bin
+      state: directory
