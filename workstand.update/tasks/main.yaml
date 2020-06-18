@@ -1,5 +1,14 @@
 # vim:ft=yaml.ansible:
 ---
+
+  - name: Disable epel repo
+    ini_file:
+      dest: /etc/yum.repos.d/epel.repo
+      section: epel
+      option: enabled
+      value: '0'
+      backup: no
+
   - name: Update all packages
     yum:
       name: "*"
