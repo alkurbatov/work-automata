@@ -32,6 +32,9 @@
       value: "0"
       backup: no
 
+  - name: Disable readykernel autoupdates
+    command: readykernel autoupdate disable
+
   - name: Add the aux repository
     yum_repository:
       file: aux
