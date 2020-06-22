@@ -185,3 +185,10 @@
       dest: /root/.gnupg
       owner: root
       mode: '0600'
+
+  - name: Copy tmux config
+    copy:
+      src: ~/work/src/github.com/alkurbatov/dotfiles/.tmux.conf
+      dest: /root
+      owner: root
+      mode: '0600'
