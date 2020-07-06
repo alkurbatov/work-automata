@@ -45,6 +45,22 @@
     tags:
       - skip_ansible_lint
 
+  - name: Install fzf plugin
+    git:
+      repo: https://github.com/junegunn/fzf.git
+      dest: /root/.local/share/nvim/site/pack/core/opt/fzf
+      version: HEAD
+    tags:
+      - skip_ansible_lint
+
+  - name: Install fzf.vim plugin
+    git:
+      repo: https://github.com/junegunn/fzf.vim.git
+      dest: /root/.local/share/nvim/site/pack/core/opt/fzf.vim
+      version: HEAD
+    tags:
+      - skip_ansible_lint
+
   - name: Copy neovim configs
     copy:
       src: ~/work/src/github.com/alkurbatov/dotfiles/.config/nvim

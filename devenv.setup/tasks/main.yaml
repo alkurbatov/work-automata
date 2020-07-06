@@ -35,6 +35,7 @@
        cockpit-system,
        cockpit-ws,
        cups-libs,
+       fzf,
        ipw2100-firmware,
        ipw2200-firmware,
        iw,
