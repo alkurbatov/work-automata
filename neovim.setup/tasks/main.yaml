@@ -1,12 +1,13 @@
 # vim:ft=yaml.ansible:
 ---
 
-  - name: Install vim colorscheme
-    copy:
-      src: ~/.config/nvim/colors
-      dest: /root/.config/nvim/
-      owner: root
-      mode: '0600'
+  - name: Install vim colorschemes
+    git:
+      repo: https://github.com/flazz/vim-colorschemes.git
+      dest: /root/.local/share/nvim/site/pack/core/start/vim-colorschemes
+      version: HEAD
+    tags:
+      - skip_ansible_lint
 
   - name: Install ale vim plugin
     git:
@@ -48,18 +49,23 @@
   - name: Install fzf plugin
     git:
       repo: https://github.com/junegunn/fzf.git
-      dest: /root/.local/share/nvim/site/pack/core/opt/fzf
+      dest: /root/.local/share/nvim/site/pack/core/start/fzf
+      version: HEAD
+    tags:
+      - skip_ansible_lint
+  - name: Install fzf.vim plugin
+    git:
+      repo: https://github.com/junegunn/fzf.vim.git
+      dest: /root/.local/share/nvim/site/pack/core/start/fzf.vim
       version: HEAD
     tags:
       - skip_ansible_lint
 
-  - name: Install fzf.vim plugin
+  - name: Install NERD tree plugin
     git:
-      repo: https://github.com/junegunn/fzf.vim.git
-      dest: /root/.local/share/nvim/site/pack/core/opt/fzf.vim
-      version: HEAD
-    tags:
-      - skip_ansible_lint
+      repo: https://github.com/preservim/nerdtree.git
+      dest: /root/.local/share/nvim/site/pack/core/start/nerdtree
+      version: 6.9.0
 
   - name: Copy neovim configs
     copy:
