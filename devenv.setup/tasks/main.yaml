@@ -119,14 +119,6 @@
       state: directory
       mode: '0755'
 
-  - name: Add custom npm registry
-    copy:
-      src: devenv.setup/files/.npmrc
-      dest: /root/
-      owner: root
-      group: root
-      mode: '0644'
-
   - name: Copy developer key
     copy:
       src: ~/.ssh/acronis_rsa
