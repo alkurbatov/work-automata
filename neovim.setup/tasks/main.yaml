@@ -53,10 +53,19 @@
       version: HEAD
     tags:
       - skip_ansible_lint
+
   - name: Install fzf.vim plugin
     git:
       repo: https://github.com/junegunn/fzf.vim.git
       dest: /root/.local/share/nvim/site/pack/core/start/fzf.vim
+      version: HEAD
+    tags:
+      - skip_ansible_lint
+
+  - name: Install vim-gitgutter plugin
+    git:
+      repo: https://github.com/airblade/vim-gitgutter.git
+      dest: /root/.local/share/nvim/site/pack/git/start/vim-gitgutter
       version: HEAD
     tags:
       - skip_ansible_lint
