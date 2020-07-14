@@ -70,6 +70,12 @@
     tags:
       - skip_ansible_lint
 
+  - name: Install vim-fugitive plugin
+    git:
+      repo: https://github.com/tpope/vim-fugitive.git
+      dest: /root/.local/share/nvim/site/pack/git/start/vim-fugitive
+      version: v3.2
+
   - name: Install NERD tree plugin
     git:
       repo: https://github.com/preservim/nerdtree.git
