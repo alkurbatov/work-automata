@@ -20,7 +20,7 @@
     git:
       repo: https://github.com/leafOfTree/vim-vue-plugin.git
       dest: /root/.local/share/nvim/site/pack/js/opt/vim-vue-plugin
-      version: v1.0.20191126
+      version: v1.0.20200714
 
   - name: Install git-messenger vim plugin
     git:
