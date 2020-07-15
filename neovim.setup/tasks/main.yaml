@@ -88,6 +88,12 @@
       dest: /root/.local/share/nvim/site/pack/ansible/opt/ansible-vim
       version: 2.2
 
+  - name: Install vim-commentary plugin
+    git:
+      repo: https://tpope.io/vim/commentary.git
+      dest: /root/.local/share/nvim/site/pack/core/start/commentary
+      version: v1.3
+
   - name: Copy neovim configs
     copy:
       src: ~/work/src/github.com/alkurbatov/dotfiles/.config/nvim
