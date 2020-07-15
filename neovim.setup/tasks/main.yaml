@@ -1,6 +1,17 @@
 # vim:ft=yaml.ansible:
 ---
 
+  - name: Create a work/bin folder
+    file:
+      path: /root/work/bin
+      state: directory
+
+  - name: Copy helptags generating script
+    copy:
+      src: ~/work/src/github.com/alkurbatov/dotfiles/bin/gen-nvim-help
+      dest: /root/work/bin/
+      mode: 0700
+
   - name: Install vim colorschemes
     git:
       repo: https://github.com/flazz/vim-colorschemes.git
@@ -15,18 +26,24 @@
       dest: /root/.local/share/nvim/site/pack/linting/opt/ale
       depth: 1
       version: v2.6.0
+    notify:
+      - Generate nvim helptags
 
   - name: Install vim-vue-plugin
     git:
       repo: https://github.com/leafOfTree/vim-vue-plugin.git
       dest: /root/.local/share/nvim/site/pack/js/opt/vim-vue-plugin
       version: v1.0.20200714
+    notify:
+      - Generate nvim helptags
 
   - name: Install git-messenger vim plugin
     git:
       repo: https://github.com/rhysd/git-messenger.vim.git
       dest: /root/.local/share/nvim/site/pack/git/start/git-messenger
       version: HEAD
+    notify:
+      - Generate nvim helptags
     tags:
       - skip_ansible_lint
 
@@ -35,6 +52,8 @@
       repo: https://github.com/vim-python/python-syntax.git
       dest: /root/.local/share/nvim/site/pack/python/opt/python-syntax
       version: HEAD
+    notify:
+      - Generate nvim helptags
     tags:
       - skip_ansible_lint
 
@@ -43,6 +62,8 @@
       repo: https://github.com/chr4/nginx.vim.git
       dest: /root/.local/share/nvim/site/pack/web/opt/nginx.vim
       version: HEAD
+    notify:
+      - Generate nvim helptags
     tags:
       - skip_ansible_lint
 
@@ -51,6 +72,8 @@
       repo: https://github.com/junegunn/fzf.git
       dest: /root/.local/share/nvim/site/pack/core/start/fzf
       version: HEAD
+    notify:
+      - Generate nvim helptags
     tags:
       - skip_ansible_lint
 
@@ -59,6 +82,8 @@
       repo: https://github.com/junegunn/fzf.vim.git
       dest: /root/.local/share/nvim/site/pack/core/start/fzf.vim
       version: HEAD
+    notify:
+      - Generate nvim helptags
     tags:
       - skip_ansible_lint
 
@@ -67,6 +92,8 @@
       repo: https://github.com/airblade/vim-gitgutter.git
       dest: /root/.local/share/nvim/site/pack/git/start/vim-gitgutter
       version: HEAD
+    notify:
+      - Generate nvim helptags
     tags:
       - skip_ansible_lint
 
@@ -75,24 +102,32 @@
       repo: https://github.com/tpope/vim-fugitive.git
       dest: /root/.local/share/nvim/site/pack/git/start/vim-fugitive
       version: v3.2
+    notify:
+      - Generate nvim helptags
 
   - name: Install NERD tree plugin
     git:
       repo: https://github.com/preservim/nerdtree.git
       dest: /root/.local/share/nvim/site/pack/core/start/nerdtree
       version: 6.9.0
+    notify:
+      - Generate nvim helptags
 
   - name: Install ansible-vim plugin
     git:
       repo: https://github.com/pearofducks/ansible-vim.git
       dest: /root/.local/share/nvim/site/pack/ansible/opt/ansible-vim
       version: 2.2
+    notify:
+      - Generate nvim helptags
 
   - name: Install vim-commentary plugin
     git:
       repo: https://tpope.io/vim/commentary.git
       dest: /root/.local/share/nvim/site/pack/core/start/commentary
       version: v1.3
+    notify:
+      - Generate nvim helptags
 
   - name: Copy neovim configs
     copy:

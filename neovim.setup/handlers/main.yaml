@@ -1,0 +1,5 @@
+# vim:ft=yaml.ansible:
+---
+
+- name: Generate nvim helptags
+  command: ~/work/bin/gen-nvim-help
