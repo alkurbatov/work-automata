@@ -117,7 +117,7 @@
     git:
       repo: https://github.com/pearofducks/ansible-vim.git
       dest: /root/.local/share/nvim/site/pack/ansible/opt/ansible-vim
-      version: 2.2
+      version: '2.2'
     notify:
       - Generate nvim helptags
 
