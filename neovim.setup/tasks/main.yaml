@@ -129,6 +129,16 @@
     notify:
       - Generate nvim helptags
 
+  - name: Install vim-javascript plugin
+    git:
+      repo: https://github.com/pangloss/vim-javascript.git
+      dest: /root/.local/share/nvim/site/pack/js/opt/vim-javascript
+      version: HEAD
+    notify:
+      - Generate nvim helptags
+    tags:
+      - skip_ansible_lint
+
   - name: Copy neovim configs
     copy:
       src: ~/work/src/github.com/alkurbatov/dotfiles/.config/nvim
