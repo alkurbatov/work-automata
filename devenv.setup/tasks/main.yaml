@@ -79,13 +79,14 @@
       state: present
       name: [
         curl,
+        fzf,
         gcc-c++,
         git,
         gpgme,
-        fzf,
         htop,
         iotop,
         iproute,
+        libXScrnSaver,
         lsof,
         make,
         mc,
@@ -100,6 +101,10 @@
         tmux,
         util-linux-user,
         wget,
+        xorg-x11-drv-qxl,
+        xorg-x11-fonts-100dpi,
+        xorg-x11-fonts-75dpi,
+        xorg-x11-server-Xorg,
         zsh,
       ]
 
