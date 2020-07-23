@@ -24,8 +24,13 @@
       - Update locate DB
       - Reboot node
 
+  - name: Determine whether docker containers exists
+    shell: /usr/bin/docker ps -a --quiet | /usr/bin/wc -l
+    register: docker_containers_count
+    changed_when: false
+
   - name: Update docker containers
     command: kolla-ansible upgrade
     become: yes
     become_user: vstoradmin
-    when: role_in_cluster == "controller"
+    when: role_in_cluster == 'controller' and docker_containers_count.stdout != '0'
