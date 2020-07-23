@@ -44,11 +44,6 @@
       priority: "100"
       gpgcheck: no
 
-  - name: Add the epel repository
-    yum:
-      state: present
-      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-
   - name: Create a work/etc folder
     file:
       path: /root/work/etc
@@ -59,3 +54,23 @@
     file:
       path: /root/work/bin
       state: directory
+
+  - name: Install basic software for work
+    yum:
+      state: present
+      name:
+        - curl
+        - gdb
+        - htop
+        - iotop
+        - iproute
+        - lsof
+        - mc
+        - mlocate
+        - rh-python36-python-debug
+        - screen
+        - strace
+        - yum-utils
+        - wget
+    notify:
+      - Update locate DB

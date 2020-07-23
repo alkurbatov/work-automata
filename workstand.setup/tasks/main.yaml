@@ -1,25 +1,17 @@
 # vim:ft=yaml.ansible:
 ---
 
+  - name: Add the epel repository
+    yum:
+      state: present
+      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
   - name: Install additional software for work
     yum:
       state: present
       name:
-        - curl
-        - gdb
-        - htop
-        - iotop
-        - iproute
-        - lsof
-        - mc
-        - mlocate
         - neovim
-        - rh-python36-python-debug
-        - screen
-        - strace
         - the_silver_searcher
-        - yum-utils
-        - wget
     notify:
       - Update locate DB
 
