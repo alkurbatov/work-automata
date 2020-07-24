@@ -1,0 +1,9 @@
+# vim:ft=yaml.ansible:
+---
+
+- name: Initial setup of a basic HCI stand playbook
+  hosts: workstand
+  gather_facts: no
+  roles:
+    - common
+    - hci-base.setup
