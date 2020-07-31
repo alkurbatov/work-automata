@@ -54,7 +54,14 @@
 
   - name: Copy git config
     copy:
-      src: ~/work/src/github.com/alkurbatov/dotfiles/.gitconfig
+      src: ~/work/src/github.com/alkurbatov/dotfiles/git/.gitconfig
+      dest: /root
+      owner: root
+      mode: '0600'
+
+  - name: Copy global gitignore
+    copy:
+      src: ~/work/src/github.com/alkurbatov/dotfiles/git/.gitignore
       dest: /root
       owner: root
       mode: '0600'
