@@ -67,6 +67,13 @@
     changed_when: false
     when: role_in_cluster == 'controller'
 
+  - name: Unpack kolla tarball
+    unarchive:
+      src: /usr/share/hci-docker/hci-docker-images-{{ kolla_package_version.stdout }}.tar.gz
+      dest: /var/lib/registry/
+      remote_src: yes
+    when: role_in_cluster == 'controller' and docker_containers_count.stdout != '0'
+
   - name: Update docker containers
     command: kolla-ansible upgrade
     become: yes
