@@ -15,6 +15,15 @@
       backup: no
     when: epel_repo_exists.stat.exists == true
 
+  # FIXME (alkurbatov): Remove when update will work with the enabled hci-devel.
+  - name: Disable hci-devel repo
+    ini_file:
+      dest: /etc/yum.repos.d/hci-devel.repo
+      section: hci-devel
+      option: enabled
+      value: '0'
+      backup: no
+
   - name: Update all packages
     yum:
       name: "*"
