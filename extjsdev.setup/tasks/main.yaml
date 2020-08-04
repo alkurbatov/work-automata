@@ -16,11 +16,14 @@
       dest: /root/work/tmp
       mode: '0440'
 
-  - name: Extract SenchaCmd into /root/work/tmp
+  - name: Extract Sencha installer into /root/work/tmp
     unarchive:
       src: /root/work/tmp/SenchaCmd-6.7.0.63-linux-amd64.sh.zip
       dest: /root/work/tmp
       remote_src: yes
+
+  - name: Install Sencha
+    command: /root/work/tmp/SenchaCmd-6.7.0.63-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/
 
   - name: Open 3.5 admin panel port
     firewalld:
