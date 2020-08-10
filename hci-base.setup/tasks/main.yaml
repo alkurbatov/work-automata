@@ -40,7 +40,7 @@
       file: aux
       name: aux
       description: UI testing repository
-      baseurl: http://kojistorage.eng.sw.ru/mash/hci-{{release}}-{{brand}}/latest/x86_64/os/
+      baseurl: http://kojistorage.builder.corp.acronis.com/mash/hci-{{release}}-{{brand}}/latest/x86_64/os/
       priority: "100"
       gpgcheck: no
 

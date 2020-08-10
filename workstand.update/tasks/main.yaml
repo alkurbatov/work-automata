@@ -49,14 +49,14 @@
 
   - name: Download kolla tarball
     get_url:
-      url: http://kojistorage.eng.sw.ru/hci-docker-images/hci-docker-images-{{ kolla_package_version.stdout }}.tar.gz
+      url: http://kojistorage.builder.corp.acronis.com/hci-docker-images/hci-docker-images-{{ kolla_package_version.stdout }}.tar.gz
       dest: /usr/share/hci-docker/
       mode: '0444'
     when: role_in_cluster == 'controller'
 
   - name: Download kolla filelist
     get_url:
-      url: http://kojistorage.eng.sw.ru/hci-docker-images/hci-docker-images-{{ kolla_package_version.stdout }}.filelist
+      url: http://kojistorage.builder.corp.acronis.com/hci-docker-images/hci-docker-images-{{ kolla_package_version.stdout }}.filelist
       dest: /usr/share/hci-docker/
       mode: '0444'
     when: role_in_cluster == 'controller'
