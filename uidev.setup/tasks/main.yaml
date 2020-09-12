@@ -5,9 +5,11 @@
     dnf:
       state: present
       name: [
-        'ant',
-        'java-11-openjdk',
-        'ruby'
+        ant,
+        java-11-openjdk,
+        ruby,
+        tar,
+        unzip,
       ]
 
   - name: Download Sencha installer
@@ -25,21 +27,21 @@
   - name: Install Sencha
     command: /root/work/tmp/SenchaCmd-6.7.0.63-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/
 
-  - name: Open 3.5 admin panel port
+  - name: Open the Admin panel access port
     firewalld:
       port: 8888/tcp
       permanent: yes
       state: enabled
       immediate: yes
 
-  - name: Open HCI admin panel port (launched from source code)
+  - name: Open the Self-service panel access port
     firewalld:
-      port: 8080/tcp
+      port: 8800/tcp
       permanent: yes
       state: enabled
       immediate: yes
 
-  - name: Open extjs admin panel port
+  - name: Open the coverage report access port
     firewalld:
       port: 7000/tcp
       permanent: yes
@@ -48,27 +50,41 @@
 
   - name: Copy application configs
     copy:
-      src: extjsdev.setup/files/nginx/sites-available
+      src: uidev.setup/files/nginx/sites-available
       dest: /etc/nginx/
-    notify:
-      - Restart nginx
 
-  - name: Enable 3.5 application config
+  - name: Enable the Admin panel config
     file:
-      src: /etc/nginx/sites-available/pstorage-ui.conf
-      dest: /etc/nginx/sites-enabled/pstorage-ui.conf
+      src: /etc/nginx/sites-available/admin-panel.conf
+      dest: /etc/nginx/sites-enabled/admin-panel.conf
       owner: root
       group: root
       state: link
-    notify:
-      - Restart nginx
 
-  - name: Enable 4.0+ application config
+  - name: Enable the Self-service panel config
     file:
-      src: /etc/nginx/sites-available/pstorage-ui-new.conf
-      dest: /etc/nginx/sites-enabled/pstorage-ui-new.conf
+      src: /etc/nginx/sites-available/self-service-panel.conf
+      dest: /etc/nginx/sites-enabled/self-service-panel.conf
       owner: root
       group: root
       state: link
-    notify:
-      - Restart nginx
+
+  - name: Enable the coverage config
+    file:
+      src: /etc/nginx/sites-available/coverage.conf
+      dest: /etc/nginx/sites-enabled/coverage.conf
+      owner: root
+      group: root
+      state: link
+
+  - name: Make root folder accessible to Nginx
+    file:
+      path: /root
+      state: directory
+      mode: '0551'
+
+  - name: Increase max watchers limit to be able to launch both panels in dev mode
+    sysctl:
+      name: fs.inotify.max_user_watches
+      value: '524288'
+      state: present
