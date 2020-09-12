@@ -2,12 +2,12 @@
 # vim:ft=yaml.ansible:
 ---
 
-- name: Initial setup of ExtJs dev env playbook
-  hosts: extjs-dev
+- name: Initial setup of UI dev env playbook
+  hosts: uidev
   gather_facts: no
   roles:
     - common
     - devenv.setup
     - neovim.setup
     - nginx.setup
-    - extjsdev.setup
+    - uidev.setup
