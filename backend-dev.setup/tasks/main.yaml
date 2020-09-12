@@ -24,12 +24,15 @@
       state: directory
       mode: '0755'
 
-  - name: Copy developer key
+  - name: Copy developer keys
     copy:
-      src: ~/.ssh/acronis_rsa
+      src: "~/.ssh/{{item}}"
       dest: /root/.ssh
       owner: root
       mode: '0600'
+    loop:
+      - acronis_rsa
+      - acronis_rsa.pub
 
   - name: Copy ssh config
     copy:
