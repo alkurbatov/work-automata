@@ -10,4 +10,5 @@
     - devenv.setup
     - neovim.setup
     - nginx.setup
+    - docker.setup
     - uidev.setup
