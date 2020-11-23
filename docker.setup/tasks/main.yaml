@@ -15,8 +15,24 @@
     notify:
       - Reboot node
 
+  - name: Identify backend used by firewalld
+    command: /usr/bin/grep -oP 'FirewallBackend=\K\w+' /etc/firewalld/firewalld.conf
+    register: firewalld_driver
+
+  - debug:
+      msg: "Firewalld uses the {{ firewalld_driver.stdout }} driver"
+
+  - name: Apply workaround to make docker work with firewalld
+    lineinfile:
+      path: /etc/firewalld/firewalld.conf
+      regexp: '^FirewallBackend='
+      line: FirewallBackend=iptables
+    when: firewalld_driver.stdout == "nftables"
+    notify:
+      - Restart firewalld
+      - Restart docker
+
   - name: Enable autostart of the docker service
     systemd:
       name: docker
       enabled: yes
-

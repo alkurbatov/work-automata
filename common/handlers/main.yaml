@@ -14,6 +14,16 @@
     name: sshd
     state: restarted
 
+- name: Restart firewalld
+  systemd:
+    name: firewalld
+    state: restarted
+
+- name: Restart docker
+  systemd:
+    name: docker
+    state: restarted
+
 # NOTE (alkurbatov): This handler should be always placed at the end of the file
 # in order to be executed the last.
 - name: Reboot node
