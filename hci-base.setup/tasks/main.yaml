@@ -67,7 +67,6 @@
         - lsof
         - mc
         - mlocate
-        - rh-python36-python-debug
         - screen
         - strace
         - yum-utils
