@@ -188,6 +188,7 @@
     file:
       path: ~/.gnupg
       state: directory
+      mode: '0600'
 
   - name: Copy gpg config in order to be able to sign commits inside virtual machines
     copy:
