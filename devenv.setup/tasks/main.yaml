@@ -197,6 +197,18 @@
       owner: root
       mode: '0600'
 
+  - name: Create script for unattended generation of GPG keys
+    copy:
+      src: devenv.setup/files/gen-key-script
+      dest: /root/work/tmp
+      owner: root
+      mode: '0600'
+
+  - name: Generate new GPG key
+    command: /usr/bin/gpg --batch --gen-key /root/tmp/gen-key-script
+    args:
+      creates: /root/.gnupg/pubring.kbx
+
   - name: Copy tmux config
     copy:
       src: ~/work/src/github.com/alkurbatov/dotfiles/.tmux.conf

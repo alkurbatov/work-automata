@@ -8,6 +8,7 @@
         docker,
         docker-compose,
         grubby,
+        pass,
       ]
 
   - name: Apply workaround to make docker work with new cgroups
@@ -31,6 +32,43 @@
     notify:
       - Restart firewalld
       - Restart docker
+
+  - name: Create a tmp folder
+    file:
+      path: /root/work/tmp
+      state: directory
+      mode: '0755'
+
+  - name: Download docker-credential-pass
+    get_url:
+      url: https://github.com/docker/docker-credential-helpers/releases/download/v0.6.3/docker-credential-pass-v0.6.3-amd64.tar.gz
+      dest: /root/work/tmp
+      mode: '0440'
+
+  - name: Install docker-credential-pass
+    unarchive:
+      src: /root/work/tmp/docker-credential-pass-v0.6.3-amd64.tar.gz
+      dest: /usr/local/bin
+      mode: '0755'
+      remote_src: yes
+
+  - name: Create docker config folder
+    file:
+      path: ~/.docker
+      state: directory
+      mode: '0700'
+
+  - name: Copy docker config
+    copy:
+      src: docker.setup/files/docker.json
+      dest: /root/.docker/config.json
+      owner: root
+      mode: '0600'
+
+  - name: Initialize password store
+    command: /usr/bin/pass init alkurbatov@umbrella.org
+    args:
+      creates: /root/.password-store
 
   - name: Enable autostart of the docker service
     systemd:
