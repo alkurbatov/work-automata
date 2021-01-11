@@ -31,8 +31,8 @@
       owner: root
       mode: '0600'
     loop:
-      - acronis_rsa
-      - acronis_rsa.pub
+      - acronis
+      - acronis.pub
 
   - name: Copy ssh config
     copy:

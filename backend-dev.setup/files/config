@@ -1,4 +1,4 @@
 Host git.acronis.com
     HostName git.acronis.com
-    IdentityFile ~/.ssh/acronis_rsa
+    IdentityFile ~/.ssh/acronis
 
