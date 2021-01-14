@@ -10,7 +10,7 @@
     yum:
       state: present
       name:
-        - neovim
+        - emacs
         - the_silver_searcher
     notify:
       - Update locate DB
