@@ -1,12 +1,17 @@
 # vim:ft=yaml.ansible:
 ---
 
+  - name: Add the epel repository
+    yum:
+      state: present
+      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
   - name: Install additional software for work
     yum:
       state: present
       name: [
         ShellCheck,
-        neovim,
+        emacs,
         python36-pylint,
         the_silver_searcher,
       ]
@@ -73,3 +78,9 @@
     file:
       path: ~/.gnupg
       state: directory
+
+  - name: Enable autostart and run postgres
+    systemd:
+      name: postgresql
+      enabled: yes
+      state: started
