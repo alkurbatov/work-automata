@@ -97,3 +97,7 @@
     when: role_in_cluster == "controller"
     notify:
       -  Restart vstorage-ui-backend
+
+  - name: Create a viewer user
+    shell: echo {{ admin_password }} | vinfra --vinfra-password {{ admin_password }} domain user create Viewer --domain default --system-permissions viewer
+    when: role_in_cluster == "controller"
