@@ -79,6 +79,7 @@
       state: present
       name: [
         curl,
+        dnf-plugin-system-upgrade,
         fzf,
         gcc-c++,
         git,
