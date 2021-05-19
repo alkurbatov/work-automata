@@ -43,6 +43,7 @@
       baseurl: https://kojistorage.builder.corp.acronis.com/mash/hci-{{release}}-{{brand}}/latest/x86_64/os/
       priority: "100"
       gpgcheck: no
+      sslverify: no
 
   - name: Create the work/etc folder
     file:
