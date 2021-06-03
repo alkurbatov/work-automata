@@ -54,14 +54,6 @@
     notify:
       -  Restart nginx
 
-  - name: Generate OpenStack credentials
-    command: kolla-ansible post-deploy
-    become: yes
-    become_user: vstoradmin
-    register: cred_gen_result
-    changed_when: cred_gen_result.stdout is search('changed=1')
-    when: role_in_cluster == "controller"
-
   - name: Disable the Shaman daemon
     systemd:
       name: shaman@{{ cluster_name }}
@@ -70,11 +62,6 @@
 
   - name: Set cluster's replicas to 3
     command: "vstorage -c {{ cluster_name }} set-attr -R -p / replicas=3"
-    when: role_in_cluster == "controller"
-
-# FIXME (alkurbatov): I doubt that we can do it more then once.
-  - name: Create very small OpenStack flavor
-    shell: source /etc/kolla/admin-openrc.sh && openstack --insecure flavor create --ram 64 --disk 1 super-tini
     when: role_in_cluster == "controller"
 
   - name: Extend keystone token lifetime
@@ -100,4 +87,17 @@
 
   - name: Create a viewer user
     shell: echo {{ admin_password }} | vinfra --vinfra-password {{ admin_password }} domain user create Viewer --domain default --system-permissions viewer
+    when: role_in_cluster == "controller"
+
+  - name: Generate OpenStack credentials
+    command: kolla-ansible post-deploy
+    become: yes
+    become_user: vstoradmin
+    register: cred_gen_result
+    changed_when: cred_gen_result.stdout is search('changed=1')
+    when: role_in_cluster == "controller"
+
+# FIXME (alkurbatov): I doubt that we can do it more then once.
+  - name: Create very small OpenStack flavor
+    shell: source /etc/kolla/admin-openrc.sh && openstack --insecure flavor create --ram 64 --disk 1 super-tini
     when: role_in_cluster == "controller"
