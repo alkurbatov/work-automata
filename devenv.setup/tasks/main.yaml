@@ -95,6 +95,7 @@
         nodejs,
         npm,
         patch,
+        rpmconf,
         rsync,
         screen,
         socat,
