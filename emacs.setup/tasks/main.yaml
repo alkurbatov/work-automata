@@ -1,0 +1,24 @@
+---
+
+  - name: Install additional software
+    yum:
+      state: present
+      name: [
+        aspell,
+        aspell-en,
+        aspell-ru,
+        emacs,
+        fd-find,
+        multimarkdown,
+        the_silver_searcher,
+      ]
+
+  - name: Copy main emacs config
+    copy:
+      src: "~/work/src/github.com/alkurbatov/dotfiles/{{item}}"
+      dest: /root
+      owner: root
+      mode: '0644'
+    loop:
+      - .emacs
+      - .emacs.d
