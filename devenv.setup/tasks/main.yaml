@@ -207,7 +207,7 @@
       mode: '0600'
 
   - name: Generate new GPG key
-    command: /usr/bin/gpg --batch --gen-key /root/tmp/gen-key-script
+    command: /usr/bin/gpg --batch --gen-key /root/work/tmp/gen-key-script
     args:
       creates: /root/.gnupg/pubring.kbx
 
