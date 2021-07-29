@@ -111,22 +111,17 @@
         zsh,
       ]
 
-  - name: Create a work/bin folder
+  - name: Create the work folders
     file:
-      path: /root/work/bin
+      path: "/root/work/{{item}}"
       state: directory
-
-  - name: Create a work/tmp folder
-    file:
-      path: /root/work/tmp
-      state: directory
-      mode: '0755'
-
-  - name: Create a work/src folder
-    file:
-      path: /root/work/src/git.acronis.com/alkurbatov
-      state: directory
-      mode: '0755'
+      mode: '0700'
+    loop:
+      - bin
+      - etc
+      - pkg
+      - src
+      - tmp
 
   - name: Copy developer keys
     copy:

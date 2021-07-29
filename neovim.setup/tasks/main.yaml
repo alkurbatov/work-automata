@@ -1,10 +1,4 @@
-# vim:ft=yaml.ansible:
 ---
-
-  - name: Create a work/bin folder
-    file:
-      path: /root/work/bin
-      state: directory
 
   - name: Copy helptags generating script
     copy:
