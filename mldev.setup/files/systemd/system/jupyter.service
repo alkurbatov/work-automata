@@ -1,0 +1,7 @@
+[Unit]
+Description=Jupyter notebook
+After=network.target
+
+[Service]
+WorkingDirectory=/root/work/notebooks
+ExecStart=/usr/local/bin/jupyter notebook

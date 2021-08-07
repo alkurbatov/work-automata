@@ -1,0 +1,11 @@
+---
+
+- name: Initial setup of ML dev env playbook
+  hosts: mldev
+  gather_facts: no
+  roles:
+    - common
+    - devenv.setup
+    - docker.setup
+    - emacs.setup
+    - mldev.setup
