@@ -4,12 +4,15 @@
     yum:
       state: present
       name: [
+        alsa-utils,
         aspell,
         aspell-en,
         aspell-ru,
+        black,
         emacs,
         fd-find,
         multimarkdown,
+        python3-autopep8,
         the_silver_searcher,
       ]
 
