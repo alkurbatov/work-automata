@@ -13,7 +13,6 @@
         python3-flake8,
         python3-humanize,
         python3-matplotlib,
-        python3-notebook,
         python3-numpy,
         python3-pandas,
         python3-seaborn,
@@ -27,6 +26,7 @@
   - name: Install additional software available only in pip
     pip:
       name: [
+        notebook,
         lightgbm==3.2.1,
       ]
 
