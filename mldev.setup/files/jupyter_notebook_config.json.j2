@@ -1,7 +1,8 @@
 {
    "NotebookApp": {
-     "password": "{{jupyter_password}}"
+     "password": "{{jupyter_password}}",
      "ip": "*",
+     "allow_root": true,
      "allow_origin": "*",
      "allow_remote_access": true,
      "open_browser": false,
@@ -9,6 +10,9 @@
      "certfile": "/root/.jupyter/service.pem",
      "keyfile": "/root/.jupyter/service-key.pem",
      "notebook_dir": "/root/work/notebooks",
+     "nbserver_extensions": {
+       "jupyterlab": true
+     },
      "iopub_data_rate_limit": 1.0e10
    }
 }
