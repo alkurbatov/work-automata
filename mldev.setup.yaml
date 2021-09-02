@@ -1,7 +1,9 @@
 ---
 
 - name: Initial setup of ML dev env playbook
-  hosts: mldev
+  hosts:
+    - mldev
+    - mldev-aci
   gather_facts: no
   roles:
     - common
