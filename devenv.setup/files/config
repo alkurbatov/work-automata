@@ -2,3 +2,6 @@ Host git.acronis.com
     HostName git.acronis.com
     IdentityFile ~/.ssh/acronis
 
+Host github.com
+    IdentityFile ~/.ssh/github
+    User alkurbatov

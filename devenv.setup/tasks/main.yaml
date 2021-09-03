@@ -1,6 +1,7 @@
-# vim:ft=yaml.ansible:
 ---
 
+# FIXME (alkurbatov): Adapter name depends on particular env.
+# Need to pick the name somehow.
   - name: Determine whether IPv6 support enabled
     command: /usr/bin/cat /proc/sys/net/ipv6/conf/enp1s0/disable_ipv6
     register: ipv6_disabled
@@ -132,6 +133,8 @@
     loop:
       - acronis
       - acronis.pub
+      - github
+      - github.pub
 
   - name: Copy ssh config
     copy:
