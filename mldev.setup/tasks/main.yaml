@@ -1,33 +1,33 @@
 ---
 
-  - name: Install additional software for work
+  - name: Install additional software from Fedora repos
     dnf:
       state: present
       name: [
         cmake,
         cppcheck,
         gdb,
+        libstdc++-static,
         mathjax,
         python3-aiofiles,
         python3-aiohttp,
         python3-flake8,
-        python3-humanize,
         python3-matplotlib,
+        python3-nbconvert,
         python3-numpy,
         python3-pandas,
         python3-seaborn,
-        # NOTE (alkurbatov): lightgbm already brings scikit, lets try to avoid conflicts.
-        # python3-scikit-learn,
         python3-tqdm,
         sscg,
         unzip,
       ]
 
-  - name: Install additional software available only in pip
+  - name: Install additional software from pip
     pip:
       name: [
+        humanize, # NB (alkurbatov): As humanize in Fedora repos is too old.
+        lightgbm==3.2.1, # NB (alkurbatov): Also, brings scikit-learn.
         notebook,
-        lightgbm==3.2.1,
       ]
 
   - name: Pull the Ubuntu docker image
