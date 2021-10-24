@@ -16,12 +16,19 @@
         the_silver_searcher,
       ]
 
-  - name: Copy main emacs config
+  - name: Create Emacs config folder
+    file:
+      path: /root/.emacs.d
+      state: directory
+      mode: '0755'
+
+  - name: Copy Emacs configs
     copy:
-      src: "~/work/src/github.com/alkurbatov/dotfiles/{{item}}"
-      dest: /root
+      src: "~/work/src/github.com/alkurbatov/emacs.d/{{item}}"
+      dest: /root/.emacs.d/
       owner: root
       mode: '0644'
     loop:
-      - .emacs
-      - .emacs.d
+      - init.el
+      - lisp
+      - snippets
