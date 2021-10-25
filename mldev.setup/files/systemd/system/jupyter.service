@@ -3,7 +3,7 @@ Description=Jupyter notebook
 After=network.target
 
 [Service]
-WorkingDirectory=/root/work/notebooks
+WorkingDirectory=/root/work/src/git.acronis.com/alkurbatov
 ExecStart=/usr/local/bin/jupyter notebook
 
 [Install]
