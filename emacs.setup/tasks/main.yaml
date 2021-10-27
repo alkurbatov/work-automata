@@ -4,6 +4,7 @@
     yum:
       state: present
       name: [
+        ShellCheck,
         aspell,
         aspell-en,
         aspell-ru,
