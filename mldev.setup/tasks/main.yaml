@@ -21,13 +21,14 @@
         python3-tqdm,
         sscg,
         unzip,
+        zip,
       ]
 
   - name: Install additional software from pip
     pip:
       name: [
         humanize, # NB (alkurbatov): As humanize in Fedora repos is too old.
-        lightgbm==3.2.1, # NB (alkurbatov): Also, brings scikit-learn.
+        lightgbm==2.3.1, # NB (alkurbatov): Also, brings scikit-learn.
         notebook,
       ]
 
