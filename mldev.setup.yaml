@@ -2,7 +2,6 @@
 
 - name: Initial setup of ML dev env playbook
   hosts:
-    - mldev
     - mldev-aci
   gather_facts: no
   roles:
@@ -11,4 +10,3 @@
     - docker.setup
     - emacs.setup
     - mldev.setup
-    - spark.setup
