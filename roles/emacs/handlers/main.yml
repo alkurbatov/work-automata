@@ -1,0 +1,6 @@
+---
+- name: Install Emacs configs
+  ansible.builtin.command:
+    cmd: ./install.sh
+    chdir: '{{ sources_folder }}/emacs.d'
+  become_user: '{{ developer }}'

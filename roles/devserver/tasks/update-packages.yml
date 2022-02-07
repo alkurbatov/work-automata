@@ -1,0 +1,8 @@
+---
+- name: Update all packages
+  ansible.builtin.dnf:
+    name: '*'
+    state: latest
+    update_cache: yes
+  notify:
+    - Reboot node

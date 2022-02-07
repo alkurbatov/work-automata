@@ -1,1 +1,5 @@
-.#*
+# OS X trash
+.DS_Store
+
+# Ansible routine
+*.retry

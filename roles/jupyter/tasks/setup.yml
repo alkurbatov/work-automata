@@ -1,0 +1,73 @@
+---
+- name: Install dependencies
+  ansible.builtin.dnf:
+    state: present
+    name: [
+      poetry,
+      python3.7,
+      sscg,
+    ]
+
+- name: Create Jupyter configuration folder
+  ansible.builtin.file:
+    path: '{{ jupyter_config_folder }}'
+    state: directory
+    owner: '{{ jupyter_user }}'
+    group: '{{ jupyter_group }}'
+    mode: '0700'
+
+- name: Copy virtualenv configs
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: '{{ jupyter_config_folder }}/'
+    owner: '{{ jupyter_user }}'
+    group: '{{ jupyter_group }}'
+    mode: '0600'
+  loop:
+    - poetry.lock
+    - poetry.toml
+    - pyproject.toml
+
+- name: Create virtual environemnt
+  ansible.builtin.shell:
+    cmd: poetry env use /usr/bin/python3.7 && poetry install
+    chdir: '{{ jupyter_config_folder }}'
+    creates: '{{ jupyter_config_folder }}/.venv'
+  become_user: '{{ jupyter_user }}'
+
+- name: Copy Jupyter config
+  ansible.builtin.template:
+    src: jupyter_notebook_config.json.j2
+    dest: '{{ jupyter_config_folder }}/jupyter_notebook_config.json'
+    owner: '{{ jupyter_user }}'
+    group: '{{ jupyter_group }}'
+    mode: '0600'
+
+- name: Generate SSL certificates
+  ansible.builtin.command:
+    cmd: /usr/bin/sscg
+    chdir: '{{ jupyter_config_folder }}'
+    creates: '{{ jupyter_config_folder }}/service-key.pem'
+  become_user: '{{ jupyter_user }}'
+
+- name: Copy Jupyter service unit
+  ansible.builtin.template:
+    src: jupyter.service.j2
+    dest: /usr/lib/systemd/system/jupyter.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Open Jupyter web panel access port
+  ansible.posix.firewalld:
+    port: 8888/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Enable autostart and run Jupyter
+  ansible.builtin.systemd:
+    name: jupyter
+    enabled: yes
+    state: started
+    daemon_reload: yes

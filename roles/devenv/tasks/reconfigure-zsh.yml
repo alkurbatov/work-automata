@@ -1,0 +1,14 @@
+---
+- name: Install zsh-you-should-use plugin
+  ansible.builtin.git:
+    repo: git@github.com:MichaelAquilina/zsh-you-should-use.git
+    dest: '{{ developer_home }}/.zsh/zsh-you-should-use'
+    version: 1.7.3
+  become_user: '{{ developer }}'
+
+- name: Install zsh-autosuggestions plugin
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: '{{ developer_home }}/.zsh/zsh-autosuggestions'
+    version: v0.7.0
+  become_user: '{{ developer }}'

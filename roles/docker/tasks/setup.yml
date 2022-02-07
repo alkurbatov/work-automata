@@ -1,0 +1,19 @@
+---
+- name: Install Docker and dependencies
+  ansible.builtin.dnf:
+    state: present
+    name: [
+      docker,
+      docker-compose,
+    ]
+
+- name: Enable autostart and run the Docker service
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Pull the Ubuntu docker image
+  community.docker.docker_image:
+    name: ubuntu:18.04
+    source: pull

@@ -1,0 +1,58 @@
+---
+- hosts: mldev
+  become: yes
+  vars:
+    developer: '{{ ansible_user }}'
+    developer_home: '/home/{{ developer }}'
+    developer_gpg_key: AD8ECD887952C5E4
+    sources_folder: '{{ developer_home }}/work/src/github.com/{{ developer }}'
+  tasks:
+    - name: Disable IPv6
+      ansible.builtin.include_role:
+        name: devserver
+        tasks_from: disable-ipv6
+
+    - name: Update the system
+      ansible.builtin.include_role:
+        name: devserver
+        tasks_from: update-packages
+
+    - name: Configure swap
+      ansible.builtin.include_role:
+        name: devserver
+        tasks_from: configure-swap
+
+    - name: Setup developer environment
+      ansible.builtin.include_role:
+        name: devenv
+        tasks_from: setup
+
+    - name: Configure zsh
+      ansible.builtin.include_role:
+        name: devenv
+        tasks_from: reconfigure-zsh
+
+    - name: Setup Emacs
+      ansible.builtin.include_role:
+        name: emacs
+        tasks_from: setup
+
+    - name: Setup Docker
+      ansible.builtin.include_role:
+        name: docker
+        tasks_from: setup
+
+    - name: Enable password storage for Docker
+      ansible.builtin.include_role:
+        name: docker
+        tasks_from: enable-password-storage
+
+    - name: Setup Nginx
+      ansible.builtin.include_role:
+        name: nginx
+        tasks_from: setup
+
+    - name: Setup Jupyter
+      ansible.builtin.include_role:
+        name: jupyter
+        tasks_from: setup

@@ -1,0 +1,17 @@
+{
+   "NotebookApp": {
+     "password": "{{ jupyter_password }}",
+     "ip": "*",
+     "allow_origin": "*",
+     "allow_remote_access": true,
+     "open_browser": false,
+     "websocket_compression_options": {},
+     "certfile": "{{ jupyter_config_folder }}/service.pem",
+     "keyfile": "{{ jupyter_config_folder }}/service-key.pem",
+     "notebook_dir": "{{ jupyter_notebooks_folder }}",
+     "nbserver_extensions": {
+       "jupyterlab": true
+     },
+     "iopub_data_rate_limit": 1.0e10
+   }
+}

@@ -1,0 +1,18 @@
+---
+- name: Increase swap size (RAM * fraction)
+  ansible.builtin.lineinfile:
+    path: /lib/systemd/zram-generator.conf
+    regexp: '^zram-fraction'
+    line: 'zram-fraction = 2.0'
+    backup: no
+  notify:
+    -  Reboot node
+
+- name: Cap the swap size
+  ansible.builtin.lineinfile:
+    path: /lib/systemd/zram-generator.conf
+    regexp: '^max-zram-size'
+    line: 'max-zram-size = 28672'
+    backup: no
+  notify:
+    -  Reboot node

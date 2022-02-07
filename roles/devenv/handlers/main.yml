@@ -1,0 +1,18 @@
+---
+- name: Install dotfiles
+  ansible.builtin.command:
+    cmd: ./install.sh
+    chdir: '{{ sources_folder }}/dotfiles'
+  become_user: '{{ developer }}'
+
+- name: Import GPG key
+  ansible.builtin.command:
+    cmd: '/usr/bin/gpg --batch --import {{ developer_home }}/work/etc/{{ developer_gpg_key }}.key'
+    chdir: '{{ developer_home }}'
+  become_user: '{{ developer }}'
+
+- name: Trust to GPG key
+  ansible.builtin.shell:
+    cmd: '(echo 5; echo y;) | /usr/bin/gpg --command-fd 0 --no-tty --no-greeting -q --edit-key {{ developer_gpg_key }} trust quit'
+    chdir: '{{ developer_home }}'
+  become_user: '{{ developer }}'

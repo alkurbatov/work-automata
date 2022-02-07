@@ -1,0 +1,13 @@
+[Unit]
+Description=Jupyter notebook
+After=network.target
+
+[Service]
+User={{ jupyter_user }}
+Group={{ jupyter_group }}
+Environment=PYTHONHASHSEED=0
+WorkingDirectory={{ jupyter_config_folder }}
+ExecStart=/usr/bin/poetry run jupyter notebook
+
+[Install]
+WantedBy=multi-user.target

@@ -1,6 +1,4 @@
-DIRECTORIES = common *.setup *.update
-
 .PHONY: lint
 
 lint:
-	ansible-lint -v $(DIRECTORIES)
+	ansible-lint -v --show-relpath --force-color

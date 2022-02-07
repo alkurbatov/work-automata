@@ -1,0 +1,130 @@
+---
+- name: Install additional software
+  ansible.builtin.dnf:
+    state: present
+    name: [
+      ShellCheck,
+      black,
+      cmake,
+      curl,
+      doxygen,
+      gcc-c++,
+      gdb,
+      git,
+      gpgme,
+      htop,
+      java-latest-openjdk,
+      jq,
+      libasan,
+      libstdc++-static,
+      lsof,
+      make,
+      mc,
+      nodejs,
+      npm,
+      patch,
+      poetry,
+      rpmconf,
+      rsync,
+      screen,
+      strace,
+      telnet,
+      the_silver_searcher,
+      tmux,
+      unzip,
+      util-linux-user,
+      wget,
+      zip,
+      zsh,
+    ]
+
+- name: Install pyright
+  community.general.npm:
+    name: pyright
+    global: yes
+
+- name: Make ZSH the default shell
+  ansible.builtin.user:
+    name: '{{ developer }}'
+    shell: /usr/bin/zsh
+
+- name: Create the work folders
+  ansible.builtin.file:
+    path: '{{ developer_home }}/work/{{ item }}'
+    state: directory
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0700'
+  loop:
+    - bin
+    - etc
+    - pkg
+    - src/git.acronis.com/alkurbatov
+    - src/git.acronis.com/mr
+    - src/github.com/alkurbatov
+    - tmp
+
+- name: Copy SSH keys
+  ansible.builtin.copy:
+    src: '~/.ssh/{{ item }}'
+    dest: '{{ developer_home }}/.ssh/'
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0600'
+  loop:
+    - acronis
+    - acronis.pub
+    - github
+    - github.pub
+
+- name: Copy SSH config
+  ansible.builtin.copy:
+    src: ssh/config
+    dest: '{{ developer_home }}/.ssh/'
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0600'
+
+- name: Register public keys
+  authorized_key:
+    user: '{{ developer }}'
+    state: present
+    key: '{{ item }}'
+  with_file:
+    - ~/.ssh/acronis.pub
+    - ~/.ssh/github.pub
+
+- name: Download dotfiles
+  ansible.builtin.git:
+    repo: git@github.com:alkurbatov/dotfiles.git
+    dest: '{{ sources_folder }}/dotfiles'
+  become_user: '{{ developer }}'
+  notify:
+    - Install dotfiles
+
+- name: Create .gnupg folder
+  ansible.builtin.file:
+    path: '{{ developer_home }}/.gnupg'
+    state: directory
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0700'
+
+- name: Copy GPG config to be able to sign commits inside virtual machines
+  ansible.builtin.copy:
+    src: gpg.conf
+    dest: '{{ developer_home }}/.gnupg/'
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0600'
+
+- name: Copy signing GPG key
+  ansible.builtin.copy:
+    src: '~/work/etc/{{ developer_gpg_key }}.key'
+    dest: '{{ developer_home }}/work/etc/'
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0600'
+  notify:
+    - Import GPG key
+    - Trust to GPG key

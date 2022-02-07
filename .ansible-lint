@@ -1,2 +1,3 @@
 skip_list:
-  - ANSIBLE0010 # Package installs should not use latest
+  - git-latest      # Git checkouts must contain explicit version.
+  - package-latest  # Package installs should not use latest.

@@ -1,0 +1,8 @@
+---
+- name: Restart NetworkManager
+  systemd:
+    name: NetworkManager
+    state: restarted
+
+- name: Reboot node
+  reboot:

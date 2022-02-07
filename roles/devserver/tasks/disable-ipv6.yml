@@ -1,0 +1,11 @@
+---
+- name: Determine whether IPv6 support enabled
+  ansible.builtin.command: '/usr/bin/cat /proc/sys/net/ipv6/conf/{{ network_adapter_name }}/disable_ipv6'
+  register: ipv6_disabled
+  changed_when: false
+
+- name: Disable IPv6 support
+  ansible.builtin.command: '/usr/bin/nmcli connection modify {{ network_adapter_name }} ipv6.method disabled'
+  when: ipv6_disabled.stdout == '0'
+  notify:
+    - Restart NetworkManager

@@ -1,0 +1,19 @@
+---
+- name: Install Emacs and dependencies
+  dnf:
+    state: present
+    name: [
+      aspell,
+      aspell-en,
+      aspell-ru,
+      emacs,
+      multimarkdown,
+    ]
+
+- name: Download Emacs configs
+  ansible.builtin.git:
+    repo: git@github.com:alkurbatov/emacs.d.git
+    dest: '{{ sources_folder }}/emacs.d'
+  become_user: '{{ developer }}'
+  notify:
+    - Install Emacs configs
