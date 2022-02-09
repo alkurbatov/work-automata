@@ -28,6 +28,11 @@
         name: devenv
         tasks_from: setup
 
+    - name: Download sources
+      ansible.builtin.include_role:
+        name: devenv
+        tasks_from: download-sources
+
     - name: Configure zsh
       ansible.builtin.include_role:
         name: devenv
