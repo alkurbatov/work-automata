@@ -2,7 +2,7 @@
 - name: Install dotfiles
   ansible.builtin.command:
     cmd: ./install.sh
-    chdir: '{{ sources_folder }}/dotfiles'
+    chdir: '{{ developer_sources_folder }}/dotfiles'
   become_user: '{{ developer }}'
 
 - name: Import GPG key

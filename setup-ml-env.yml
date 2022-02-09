@@ -5,7 +5,8 @@
     developer: '{{ ansible_user }}'
     developer_home: '/home/{{ developer }}'
     developer_gpg_key: AD8ECD887952C5E4
-    sources_folder: '{{ developer_home }}/work/src/github.com/{{ developer }}'
+    github_sources_folder: '{{ developer_home }}/work/src/github.com'
+    developer_sources_folder: '{{ github_sources_folder }}/{{ developer }}'
   tasks:
     - name: Disable IPv6
       ansible.builtin.include_role:
