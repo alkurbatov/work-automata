@@ -4,6 +4,8 @@
     state: present
     name: [
       ShellCheck,
+      ansible,
+      ansible-lint,
       black,
       cmake,
       curl,
