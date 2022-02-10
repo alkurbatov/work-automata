@@ -38,6 +38,11 @@
         name: devenv
         tasks_from: reconfigure-zsh
 
+    - name: Configure MC
+      ansible.builtin.include_role:
+        name: devenv
+        tasks_from: reconfigure-mc
+
     - name: Setup Emacs
       ansible.builtin.include_role:
         name: emacs

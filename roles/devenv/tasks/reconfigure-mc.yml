@@ -1,0 +1,8 @@
+---
+- name: Copy MC configs
+  ansible.builtin.copy:
+    src: mc
+    dest: '{{ developer_home }}/.config/'
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0600'
