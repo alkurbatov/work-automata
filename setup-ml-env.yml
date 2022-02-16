@@ -4,7 +4,7 @@
   vars:
     developer: '{{ ansible_user }}'
     developer_home: '/home/{{ developer }}'
-    developer_gpg_key: AD8ECD887952C5E4
+    developer_gpg_key: F8CF25AB43EC6127
     github_sources_folder: '{{ developer_home }}/work/src/github.com'
     developer_sources_folder: '{{ github_sources_folder }}/{{ developer }}'
   tasks:
