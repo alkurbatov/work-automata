@@ -28,6 +28,14 @@
         name: devenv
         tasks_from: setup
 
+    - name: Import GPG key
+      ansible.builtin.include_role:
+        name: devenv
+        tasks_from: import-gpg-key
+        apply:
+          tags: gpg
+      tags: gpg
+
     - name: Download sources
       ansible.builtin.include_role:
         name: devenv
