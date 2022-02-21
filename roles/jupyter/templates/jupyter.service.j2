@@ -8,6 +8,8 @@ Group={{ jupyter_group }}
 Environment=PYTHONHASHSEED=0
 WorkingDirectory={{ jupyter_config_folder }}
 ExecStart=/usr/bin/poetry run jupyter notebook
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
