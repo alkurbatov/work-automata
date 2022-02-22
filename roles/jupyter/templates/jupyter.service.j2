@@ -10,7 +10,7 @@ WorkingDirectory={{ jupyter_config_folder }}
 ExecStart=/usr/bin/poetry run jupyter notebook
 Restart=on-failure
 RestartSec=5s
-CPUQuota={{ jupyter_cores * 100 }}%
+AllowedCPUs=0-{{ jupyter_cores - 1 }}
 
 [Install]
 WantedBy=multi-user.target
