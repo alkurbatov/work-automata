@@ -103,3 +103,10 @@
   become_user: '{{ developer }}'
   notify:
     - Install dotfiles
+
+- name: Add mappings to /etc/hosts
+  ansible.builtin.copy:
+    src: ~/work/etc/hosts
+    dest: /etc/hosts
+    owner: root
+    mode: '0644'
