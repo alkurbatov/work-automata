@@ -110,3 +110,11 @@
     dest: /etc/hosts
     owner: root
     mode: '0644'
+
+- name: Copy top utility config
+  ansible.builtin.copy:
+    src: toprc
+    dest: '{{ developer_home }}/.config/procps/'
+    owner: '{{ developer }}'
+    group: '{{ developer }}'
+    mode: '0644'
