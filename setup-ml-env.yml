@@ -1,18 +1,13 @@
 ---
-- hosts: mldev
-  become: yes
+- name: Deploy ML working environment
+  hosts: mldev
+  become: true
   vars:
     developer: '{{ ansible_user }}'
     developer_home: '/home/{{ developer }}'
-    developer_gpg_key: F8CF25AB43EC6127
     github_sources_folder: '{{ developer_home }}/work/src/github.com'
     developer_sources_folder: '{{ github_sources_folder }}/{{ developer }}'
   tasks:
-    - name: Disable IPv6
-      ansible.builtin.include_role:
-        name: devserver
-        tasks_from: disable-ipv6
-
     - name: Update the system
       ansible.builtin.include_role:
         name: devserver
@@ -23,23 +18,15 @@
         name: devserver
         tasks_from: configure-swap
 
+    - name: Disable IPv6
+      ansible.builtin.include_role:
+        name: devserver
+        tasks_from: disable-ipv6
+
     - name: Setup developer environment
       ansible.builtin.include_role:
         name: devenv
         tasks_from: setup
-
-    - name: Import GPG key
-      ansible.builtin.include_role:
-        name: devenv
-        tasks_from: import-gpg-key
-        apply:
-          tags: gpg
-      tags: gpg
-
-    - name: Download sources
-      ansible.builtin.include_role:
-        name: devenv
-        tasks_from: download-sources
 
     - name: Configure zsh
       ansible.builtin.include_role:
@@ -55,16 +42,6 @@
       ansible.builtin.include_role:
         name: emacs
         tasks_from: setup
-
-    - name: Setup Docker
-      ansible.builtin.include_role:
-        name: docker
-        tasks_from: setup
-
-    - name: Enable password storage for Docker
-      ansible.builtin.include_role:
-        name: docker
-        tasks_from: enable-password-storage
 
     - name: Setup Nginx
       ansible.builtin.include_role:

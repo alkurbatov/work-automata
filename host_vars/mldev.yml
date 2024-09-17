@@ -1,3 +1,3 @@
 ---
-network_adapter_name: ens3
-jupyter_cores: 15
+network_adapter_name: enp1s0
+jupyter_cores: 4

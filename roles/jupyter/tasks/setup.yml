@@ -4,7 +4,7 @@
     state: present
     name: [
       poetry,
-      python3.7,
+      python,
       sscg,
     ]
 
@@ -27,18 +27,19 @@
     - poetry.lock
     - poetry.toml
     - pyproject.toml
+    - jupyter_notebook_config.py
 
 - name: Create virtual environemnt
   ansible.builtin.shell:
-    cmd: poetry env use /usr/bin/python3.7 && poetry install
+    cmd: poetry env use 3.12 && poetry install --no-root
     chdir: '{{ jupyter_config_folder }}'
     creates: '{{ jupyter_config_folder }}/.venv'
   become_user: '{{ jupyter_user }}'
 
-- name: Copy Jupyter config
+- name: Copy Jupyter server config
   ansible.builtin.template:
-    src: jupyter_notebook_config.json.j2
-    dest: '{{ jupyter_config_folder }}/jupyter_notebook_config.json'
+    src: jupyter_server_config.py.j2
+    dest: '{{ jupyter_config_folder }}/jupyter_server_config.py'
     owner: '{{ jupyter_user }}'
     group: '{{ jupyter_group }}'
     mode: '0600'
@@ -61,13 +62,13 @@
 - name: Open Jupyter web panel access port
   ansible.posix.firewalld:
     port: 8888/tcp
-    permanent: yes
+    permanent: true
     state: enabled
-    immediate: yes
+    immediate: true
 
 - name: Enable autostart and run Jupyter
   ansible.builtin.systemd:
     name: jupyter
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true

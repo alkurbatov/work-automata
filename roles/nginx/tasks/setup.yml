@@ -33,5 +33,5 @@
 - name: Enable autostart and run Nginx
   ansible.builtin.systemd:
     name: nginx
-    enabled: yes
+    enabled: true
     state: started

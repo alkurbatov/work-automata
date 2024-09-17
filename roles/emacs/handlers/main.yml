@@ -1,6 +1,6 @@
 ---
-- name: Install Emacs configs
+- name: Install Emacs configuration
   ansible.builtin.command:
-    cmd: ./install.sh
-    chdir: '{{ developer_sources_folder }}/emacs.d'
+    cmd: make install
+    chdir: '{{ developer_sources_folder }}/nano-emacs'
   become_user: '{{ developer }}'

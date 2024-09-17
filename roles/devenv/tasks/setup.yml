@@ -4,21 +4,12 @@
     state: present
     name: [
       ShellCheck,
-      ansible,
-      ansible-lint,
-      black,
-      cmake,
+      bat,
       curl,
-      doxygen,
-      gcc-c++,
-      gdb,
       git,
       gpgme,
       htop,
-      java-latest-openjdk,
       jq,
-      libasan,
-      libstdc++-static,
       lsof,
       make,
       mc,
@@ -30,6 +21,7 @@
       rsync,
       screen,
       strace,
+      tar,
       telnet,
       the_silver_searcher,
       tmux,
@@ -43,7 +35,7 @@
 - name: Install pyright
   community.general.npm:
     name: pyright
-    global: yes
+    global: true
 
 - name: Make ZSH the default shell
   ansible.builtin.user:
@@ -61,8 +53,6 @@
     - bin
     - etc
     - pkg
-    - src/git.acronis.com/alkurbatov
-    - src/git.acronis.com/mr
     - src/github.com/alkurbatov
     - tmp
 
@@ -74,10 +64,7 @@
     group: '{{ developer }}'
     mode: '0600'
   loop:
-    - acronis
-    - acronis.pub
     - github
-    - github.pub
 
 - name: Copy SSH config
   ansible.builtin.copy:
@@ -87,29 +74,14 @@
     group: '{{ developer }}'
     mode: '0600'
 
-- name: Register public keys
-  authorized_key:
-    user: '{{ developer }}'
-    state: present
-    key: '{{ item }}'
-  with_file:
-    - ~/.ssh/acronis.pub
-    - ~/.ssh/github.pub
-
 - name: Download dotfiles
   ansible.builtin.git:
     repo: git@github.com:alkurbatov/dotfiles.git
     dest: '{{ developer_sources_folder }}/dotfiles'
+    accept_hostkey: true
   become_user: '{{ developer }}'
   notify:
     - Install dotfiles
-
-- name: Add mappings to /etc/hosts
-  ansible.builtin.copy:
-    src: ~/work/etc/hosts
-    dest: /etc/hosts
-    owner: root
-    mode: '0644'
 
 - name: Copy top utility config
   ansible.builtin.copy:

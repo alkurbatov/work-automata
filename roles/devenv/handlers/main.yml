@@ -13,6 +13,8 @@
 
 - name: Trust to GPG key
   ansible.builtin.shell:
-    cmd: '(echo 5; echo y;) | /usr/bin/gpg --command-fd 0 --no-tty --no-greeting -q --edit-key {{ developer_gpg_key }} trust quit'
+    cmd: |
+      set -o pipefail
+      (echo 5; echo y;) | /usr/bin/gpg --command-fd 0 --no-tty --no-greeting -q --edit-key {{ developer_gpg_key }} trust quit
     chdir: '{{ developer_home }}'
   become_user: '{{ developer }}'

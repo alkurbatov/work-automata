@@ -3,7 +3,7 @@
   ansible.builtin.git:
     repo: git@github.com:MichaelAquilina/zsh-you-should-use.git
     dest: '{{ developer_home }}/.zsh/zsh-you-should-use'
-    version: 1.7.3
+    version: 1.9.0
   become_user: '{{ developer }}'
 
 - name: Install zsh-autosuggestions plugin
@@ -11,4 +11,11 @@
     repo: git@github.com:zsh-users/zsh-autosuggestions.git
     dest: '{{ developer_home }}/.zsh/zsh-autosuggestions'
     version: v0.7.0
+  become_user: '{{ developer }}'
+
+- name: Install zsh-syntax-highlighting plugin
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
+    dest: '{{ developer_home }}/.zsh/zsh-syntax-highlighting'
+    version: 0.8.0
   become_user: '{{ developer }}'

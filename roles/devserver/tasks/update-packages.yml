@@ -3,6 +3,6 @@
   ansible.builtin.dnf:
     name: '*'
     state: latest
-    update_cache: yes
+    update_cache: true
   notify:
     - Reboot node
