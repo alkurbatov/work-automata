@@ -6,6 +6,7 @@
       poetry,
       python,
       sscg,
+      texlive-scheme-full,
     ]
 
 - name: Create Jupyter configuration folder
@@ -27,6 +28,7 @@
     - poetry.lock
     - poetry.toml
     - pyproject.toml
+    - jupyter_nbconvert_config.py
     - jupyter_notebook_config.py
 
 - name: Create virtual environemnt
