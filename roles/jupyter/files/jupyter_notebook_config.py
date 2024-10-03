@@ -1115,3 +1115,6 @@ c.ServerApp.jpserver_extensions = {'jupyterlab'}
 #          Should be in the form of an HTTP origin: ws[s]://hostname[:port]
 #  Default: ''
 # c.ServerApp.websocket_url = ''
+
+## Load nbconvert config for better notebook export to different formats.
+load_subconfig("jupyter_nbconvert_config.py")
